@@ -1,0 +1,74 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Jquery slider by apkostka</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Jquery slider</h1>
+        <p>A simple jQuery slider.</p>
+
+        <p class="view"><a href="https://github.com/apkostka/jquery_slider">View the Project on GitHub <small>apkostka/jquery_slider</small></a></p>
+
+
+        <ul>
+          <li><a href="https://github.com/apkostka/jquery_slider/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/apkostka/jquery_slider/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/apkostka/jquery_slider">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h3>Getting Started</h3>
+
+<p>This is a simple jQuery plugin that will go through the &lt;li&gt;'s in the specified &lt;div&gt; and create a slideshow.  The necessary files to include are slider.js and slider.css, anything else in the repo is for the purposes of demonstration.  You can use images, html, or any other content you can think of in the slides.  Include the following with your CSS files in the &lt;head&gt; of the document:</p>
+
+<div class="highlight"><pre><span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">"stylesheet"</span> <span class="na">type=</span><span class="s">"text/css"</span> <span class="na">href=</span><span class="s">"slider.css"</span><span class="nt">/&gt;</span>
+</pre></div>
+
+<p>And the following just before the &lt;/body&gt; element:</p>
+
+<div class="highlight"><pre><span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"//ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+<span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"slider.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+</pre></div>
+
+<p>Of course, if you already include the jQuery library, you can leave that out.</p>
+
+<p>The markup for the slideshow should look as follows:</p>
+
+<div class="highlight"><pre><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"slider"</span> <span class="na">data-time=</span><span class="s">"1000"</span> <span class="na">data-interval=</span><span class="s">"2000"</span> <span class="na">data-height=</span><span class="s">"300"</span> <span class="na">data-width=</span><span class="s">"960"</span><span class="nt">&gt;</span>
+<span class="nt">&lt;ul&gt;</span>
+    <span class="nt">&lt;li&gt;&lt;img</span> <span class="na">src=</span><span class="s">"images/slide1.png"</span><span class="nt">/&gt;&lt;/li&gt;</span>
+    <span class="nt">&lt;li&gt;&lt;img</span> <span class="na">src=</span><span class="s">"images/slide2.png"</span><span class="nt">/&gt;&lt;/li&gt;</span>
+    <span class="nt">&lt;li&gt;&lt;img</span> <span class="na">src=</span><span class="s">"images/slide3.png"</span><span class="nt">/&gt;&lt;/li&gt;</span>
+<span class="nt">&lt;/ul&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+</pre></div>
+
+<p>You can see all the available options as 'data-' attributes of the &lt;div&gt; element.  The available options are as follows:</p>
+
+<ul>
+<li>data-duration (integer) : The duration(speed) of the slide animation.</li>
+<li>data-interval (integer) : The interval between animations.  This is reset when the user clicks on one of the slide control buttons.</li>
+<li>data-height (integer) : The height of the slider area.</li>
+<li>data-width: The width of the slider area.</li>
+</ul>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/apkostka">apkostka</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+    
+  </body>
+</html>
