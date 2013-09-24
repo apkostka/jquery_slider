@@ -1,0 +1,10 @@
+ul.slider {
+	width:960px;
+	height:305px;
+	margin: 40px auto;
+	padding:0;
+	overflow:hidden;
+}
+ul.slider li{
+	list-style:none;
+}

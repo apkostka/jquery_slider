@@ -1,0 +1,26 @@
+<!doctype html>
+<html>
+<head>
+<link rel="stylesheet" type="text/css" href="demo.css"/>
+</head>
+<body>
+
+<ul class="slider">
+	<li><img src="images/slide1.png"/></li>
+	<li><img src="images/slide2.png"/></li>
+	<li><img src="images/slide3.png"/></li>
+</ul>
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="../slider.js"></script>
+<script tpye="text/javascript">
+	jQuery(function($){
+		$('.slider').slider({
+			transition: 	'slide',
+			duration:			1000,
+			interval:			3000
+		});
+	});
+</script>
+</body>
+</html>

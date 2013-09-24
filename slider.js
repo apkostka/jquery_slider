@@ -1,80 +1,125 @@
-jQuery(document).ready(function(){
+/*!
+ * jQuery Slider plugin
+ * Original author: @apkostka
+ * Licensed under the MIT license
+ */
 
-	/*Get the width and height data- attributes*/
-	var slider = jQuery('div.slider');
-	var sliderUL = slider.children('ul');
-	var slides = sliderUL.children('li');
-	var height = slider.attr('data-height');
-	var width = slider.attr('data-width');
-	var speed = parseInt(slider.attr('data-time'));
-	var interval = parseInt(slider.attr('data-interval'));
-	var activeSlide = 0;
-	var sliderCSS = {
-		'height': height,
-		'width': width
-	}
+;(function($,window) {
 
-	/*Creates an array from the slides and adds slideNo attributes*/
-	var slideArr = jQuery.makeArray(slides);
-	var number = 0;
-	jQuery.each(slideArr, function(index, slide) {
-		number++;
-		jQuery(slide).attr('data-slideNo', index + 1);
-	});
-	slides.last().attr('data-slideNo', 0);
+	var defaults = {
+		transition:		"slide",
+		duration:			1000,
+		interval:			3000
+	};
 
-	/*Create slideControl buttons*/
-	slider.after('<ul class="sliderControls"></ul>');
-	var buttonCount = 0;
-	jQuery('ul.sliderControls').html('<li data-target="0"></li>');
-	while (buttonCount < number - 1) {
-		buttonCount++;
-		jQuery('ul.sliderControls li:last').after('<li data-target="'+buttonCount+'"></li>');
-	}
-	var sliderControl = jQuery('ul.sliderControls li');
-	jQuery('ul.sliderControls li:first').addClass('active');
+	function Slider( element, options ) {
 
+		var self = this;
 
-	/*Sets the width and height of slider div and ul*/
-	slider.css(sliderCSS);
-	sliderUL.css('width', width * number);
-	slides.css('width', width);
+		self.container = element;
+		self.options = $.extend( {}, defaults, options);
+    self._defaults = defaults;
 
-	/*Where the magic happens*/
-	var changeSlide = function(newSlide){
-		sliderUL.animate({
-			left: -(width * newSlide)
-		}, speed, function(){
-		});
-		jQuery('ul.sliderControls li').removeClass('active');
-		jQuery('ul.sliderControls li[data-target="'+newSlide+'"]').addClass('active');
-	}
-	
-	var refreshInterval = setInterval(function(){
-		if (activeSlide >= number - 1) {
-			newSlide = 0;
-			activeSlide = 0;
-		} else {
-			newSlide = activeSlide + 1;
-			activeSlide++;
+    self.slides = $(self.container).children();
+
+    self.init();
+
+	};
+
+	Slider.prototype = {
+
+		//Initialize slider, set css and interval.
+		init: function () {
+			var self = this;
+
+			self.container.css('position', 'relative');
+			
+			self.currentFrameID = 0;
+
+			self.setCSS(0, function(){});
+
+			window.setInterval(function() {
+				self.next();
+			}, self.options.interval);
+		},
+
+		// Go to next slide.
+		next: function () {
+			var self = this;
+
+			var id = (self.currentFrameID !== (self.slides.length - 1)) ? self.currentFrameID + 1 : 0;
+			self.goTo(id);
+			
+		},
+
+		// Go to previous slide.
+		prev: function () {
+			var self = this;
+			
+			var id = (self.currentFrameID !== 0) ? self.currentFrameID - 1 : self.slides.length - 1;
+			self.goTo(id);
+		},
+
+		// Change to slide with specified ID.
+		goTo: function (id) {
+			var self = this;
+
+			if (self.currenFrameID !== id) {
+
+				self.setCSS(self.currentFrameID, function() {
+
+					$(self.slides[self.currentFrameID]).animate({
+						left: -Math.abs(self.container.width())
+					}, self.options.duration);
+
+					$(self.slides[id]).animate({
+						left: 0
+					}, self.options.duration);
+
+				});
+			};
+
+			self.currentFrameID = id;
+		},
+
+		/*  Reset slides to right side of current slide.
+		 *  I need to rewrite using a better async method.
+		 */
+		setCSS: function(id, callback) {
+			var self = this;
+
+			self.slides.each(function(index, el){
+				$(el).css({
+					position:		'absolute',
+					top:				0,
+					left:				self.container.width()
+				});
+			});
+
+			$(self.slides).removeClass('current-slide');
+			
+			$(self.slides[id])
+				.addClass('current-slide')
+				.css('left', 0);
+
+			callback();
+		},
+
+		// TODO: Fill in destroy() method.
+		destroy: function() {
+			
 		}
-		changeSlide(newSlide);
-	}, interval);
-	
-	sliderControl.click(function(){
-		newSlide = jQuery(this).attr('data-target');
-		changeSlide(newSlide);
-		activeSlide = parseInt(jQuery(this).attr('data-target'));
-		window.clearInterval(refreshInterval);
-		refreshInterval = setInterval(function(){
-			if (activeSlide >= number - 1) {
-				newSlide = 0;
-				activeSlide = 0;
-			} else {
-				newSlide = activeSlide + 1;
-				activeSlide++;
-			}
-			changeSlide(newSlide);
-		}, interval);
-	});
-});
+
+	}
+
+	// Prevent reinitializing on single element.
+	$.fn.slider = function ( options ) {
+    return this.each(function () {
+      if (!$.data(this, 'slider_init')) {
+        $.data(this, 'slider_init', 
+        new Slider( $(this), options ));
+      }
+    });
+  };
+
+})(jQuery,window);
