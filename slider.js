@@ -18,11 +18,11 @@
 
 		self.container = element;
 		self.options = $.extend( {}, defaults, options);
-    self._defaults = defaults;
+		self._defaults = defaults;
 
-    self.slides = $(self.container).children();
+		self.slides = $(self.container).children();
 
-    self.init();
+		self.init();
 
 	};
 
@@ -33,7 +33,7 @@
 			var self = this;
 
 			self.container.css('position', 'relative');
-			
+
 			self.currentFrameID = 0;
 
 			self.setCSS(0, function(){});
@@ -49,13 +49,12 @@
 
 			var id = (self.currentFrameID !== (self.slides.length - 1)) ? self.currentFrameID + 1 : 0;
 			self.goTo(id);
-			
 		},
 
 		// Go to previous slide.
 		prev: function () {
 			var self = this;
-			
+
 			var id = (self.currentFrameID !== 0) ? self.currentFrameID - 1 : self.slides.length - 1;
 			self.goTo(id);
 		},
@@ -68,13 +67,13 @@
 
 				self.setCSS(self.currentFrameID, function() {
 
-					$(self.slides[self.currentFrameID]).animate({
-						left: -Math.abs(self.container.width())
-					}, self.options.duration);
+				$(self.slides[self.currentFrameID]).animate({
+					left: -Math.abs(self.container.width())
+				}, self.options.duration);
 
-					$(self.slides[id]).animate({
-						left: 0
-					}, self.options.duration);
+				$(self.slides[id]).animate({
+					left: 0
+				}, self.options.duration);
 
 				});
 			};
@@ -83,8 +82,8 @@
 		},
 
 		/*  Reset slides to right side of current slide.
-		 *  I need to rewrite using a better async method.
-		 */
+		*  I need to rewrite using a better async method.
+		*/
 		setCSS: function(id, callback) {
 			var self = this;
 
@@ -97,7 +96,7 @@
 			});
 
 			$(self.slides).removeClass('current-slide');
-			
+
 			$(self.slides[id])
 				.addClass('current-slide')
 				.css('left', 0);
@@ -107,19 +106,19 @@
 
 		// TODO: Fill in destroy() method.
 		destroy: function() {
-			
+
 		}
 
 	}
 
 	// Prevent reinitializing on single element.
 	$.fn.slider = function ( options ) {
-    return this.each(function () {
-      if (!$.data(this, 'slider_init')) {
-        $.data(this, 'slider_init', 
-        new Slider( $(this), options ));
-      }
-    });
-  };
+		return this.each(function () {
+			if (!$.data(this, 'slider_init')) {
+				$.data(this, 'slider_init', 
+					new Slider( $(this), options ));
+			}
+		});
+	};
 
 })(jQuery,window);
