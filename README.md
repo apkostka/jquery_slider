@@ -6,7 +6,7 @@ Include the following just before the &lt;/body&gt; element:
 
 ```html
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
-<script src="slider.js"></script>
+<script src="/path/to/jquery.slider.js"></script>
 ```
 
 Of course, if you already include the jQuery library, you can leave that out.
